@@ -1,0 +1,5 @@
+variant,evaluated,front_size,coverage_K1K3_front,coverage_K1K4_front,best_K1,best_id,min_K2,min_K3,max_K4,front
+without LLM,25,6,0.43,0.35,233.3,S1011101,253.8,37,6,S0010000 S1001001 S1010001 S1011001 S1011101 S1100001
+with LLM,25,6,0.43,0.35,233.3,S1011101,253.8,37,6,S0010000 S1001001 S1010001 S1011001 S1011101 S1100001
+"without LLM (all starts, mean)",25,,0.55,0.46,233.6,,,,,runs=96
+"with LLM (all starts, mean)",25,,0.55,0.47,233.6,,,,,runs=96

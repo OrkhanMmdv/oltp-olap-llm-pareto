@@ -1,0 +1,893 @@
+{
+ "S0000000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions with clear naming conventions, but suffers from significant semantic issues: two fact tables at different grains (orders vs. line items) without clear separation of concerns, redundant nation-region hierarchies for both customer and supplier dimensions, and ambiguous operational attributes (flags, statuses, instructions) that belong in conformed dimensions rather than facts. The time dimension is implicit rather than explicit, limiting hierarchical analysis."
+ },
+ "S0000010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions with clear naming conventions, but suffers from critical semantic issues: two fact tables at different grains (orders vs. lineorder) without proper separation of their distinct measures, redundant comment tables that duplicate dimensional attributes, and a confusing relationship where lineorder joins to orders (creating a snowflake anti-pattern). Time hierarchies exist but are underexploited. Preserving source data does not justify fragmenting comments into separate tables."
+ },
+ "S0000100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but violates dimensional design principles: fact_lineorder and fact_orders mix different grains without clear separation, fact_partsupp is ambiguously positioned as a fact table despite being a bridge/junction, and multiple redundant nation/region hierarchies create ambiguity. Naming is clear but the fundamental structure needs restructuring for reliable analysis."
+ },
+ "S0000110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant redundancy issues: nine separate comment tables duplicate keys already in fact/dimension tables, two fact tables at different grains (lineorder vs orders) lack clear separation of measures, and dim_nation is referenced twice for different hierarchies without disambiguation. While naming is generally clear and time hierarchies exist, the comment table proliferation and grain ambiguity create semantic confusion that undermines analytical clarity."
+ },
+ "S0001000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions, but suffers from unclear grain separation between fact_lineorder and fact_orders, redundant nation/region hierarchies, and fact tables containing raw dates alongside dimension keys. The naming is clear and hierarchies are well-structured, but semantic ambiguity around fact granularity and duplicate dimensional paths weaken analytical clarity."
+ },
+ "S0001010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant redundancy issues: eight separate comment tables duplicate information that should be denormalized into their parent tables, and a fact_partsupp table lacks clear measure definitions. Grain is ambiguous because fact_lineorder and fact_orders represent different levels without explicit clarification. Time hierarchy is well-structured but underutilized. Naming is generally clear but the proliferation of comment tables obscures semantic intent."
+ },
+ "S0001100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant grain ambiguity (fact_lineorder and fact_orders represent different grains without clear separation), redundant dimension pathways (Nation\u2192Region appears twice), and mixed raw/derived columns in fact tables. Time hierarchy is well-structured but naming and dimensional modeling could be clearer."
+ },
+ "S0001110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves TPC-H source structure but conflates operational and analytical designs. Two fact tables (fact_orders and fact_lineorder) at different grains lack clear separation, time dimensions are incomplete (missing from lineorder), and proliferating comment tables create redundancy and ambiguity about whether comments are dimensions or facts. Dimensional hierarchies are present but navigation is cluttered."
+ },
+ "S0010000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema preserves source TPC-H structure but violates dimensional modeling principles by mixing fact tables at different grains (lineorder vs. orders) and including denormalized attributes (s_nation, s_region) that duplicate dimension information. Time dimensions lack explicit hierarchies, and the relationship between fact_lineorder and fact_orders creates semantic ambiguity about which table is authoritative for order-level analysis."
+ },
+ "S0010010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves all TPC-H source data but violates dimensional design principles: fact_lineorder and fact_orders have different grains yet are joined, creating ambiguity; redundant denormalization (s_nation, s_region in dim_supplier) and parallel comment tables fragment semantics; multiple fact tables at different granularities complicate analysis without clear justification."
+ },
+ "S0010100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 5,
+  "naming": 7,
+  "redundancy": 5,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from unclear grain separation (fact_lineorder and fact_orders at different grains without explicit separation), missing time dimension hierarchy, redundant denormalization in dim_supplier (s_nation, s_region), and ambiguous relationships between two fact tables that should be clarified. Core dimensional structure is sound but needs refinement for analytical clarity."
+ },
+ "S0010110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 4,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from poor grain separation (fact_lineorder and fact_orders at different grains without clear conformation), redundant denormalization (s_nation, s_region in dim_supplier; parallel comment tables), and missing time dimension hierarchy. Naming is inconsistent (lo_ prefix in fact_lineorder, mixed naming conventions), and semantic relationships between three fact tables are unclear."
+ },
+ "S0011000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from unclear grain separation (fact_lineorder and fact_orders are at different grains and cross-join), redundant denormalization in dim_supplier (s_nation, s_region should be lookups), and missing date foreign keys in fact_lineorder. Time hierarchies are well-structured but underutilized. Clear naming conventions are a strength."
+ },
+ "S0011010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions, but suffers from significant redundancy (denormalized supplier attributes, scattered comment tables, fact_partsupp grain ambiguity) and unclear grain separation between fact_lineorder and fact_orders. Time hierarchy is well-structured, and naming is clear, but the comment table proliferation and redundant dimension attributes weaken semantic clarity."
+ },
+ "S0011100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts into separate tables without clear grain separation, contains redundant denormalization (s_nation, s_region in dim_supplier; dates as raw columns in fact tables), and lacks proper time dimension keys for critical dates. While dimensions are mostly well-structured and hierarchies exist, the fact table design creates analytical ambiguity and requires careful join logic to avoid double-counting."
+ },
+ "S0011110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source TPC-H structure but conflates facts and dimensions, lacks clear grain separation between fact_lineorder and fact_orders, and introduces significant redundancy through parallel comment tables and denormalized supplier attributes. While time hierarchy is usable and naming is mostly clear, the semantic organization is confusing for analytical purposes."
+ },
+ "S0100000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant grain confusion (fact_lineorder and fact_orders at different levels), semantic redundancy (nation/region denormalized in dim_customer and dim_supplier), and an awkward many-to-many bridge through fact_partsupp. Time hierarchies are present but underexploited. Naming is clear, but the design violates dimensional best practices by mixing order-level and line-level facts."
+ },
+ "S0100010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema preserves source data well but suffers from significant semantic issues: two fact tables at different grains (orders vs. lineorder) without clear separation, denormalized dimensional attributes (nation/region embedded in customer/supplier), redundant comment tables that should be consolidated, and missing explicit time dimensions. While naming is generally clear and hierarchies exist, the grain ambiguity and redundancy create analytical confusion."
+ },
+ "S0100100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source TPC-H structure but conflates multiple grains into fact tables and duplicates dimensional attributes (nation/region in dim_customer and dim_supplier), creating ambiguity and redundancy that undermines analytical clarity despite generally clear naming conventions."
+ },
+ "S0100110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts a star schema but suffers from significant semantic issues: two fact tables at different grains (orders vs. lineorder) without clear separation, redundant dimension attributes (nation/region denormalized into dim_customer), and eight separate comment tables that violate normalization and create confusion about whether comments are facts or dimensions. Time dimension is absent, and the relationship between fact_orders and fact_lineorder is ambiguous."
+ },
+ "S0101000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions, but suffers from unclear grain separation (fact_lineorder and fact_orders are related but grain difference is ambiguous), redundant geographic attributes in dim_customer, and a problematic fact_lineorder\u2192fact_orders relationship that violates dimensional modeling principles. Time dimension is well-constructed with useful hierarchies."
+ },
+ "S0101010": {
+  "fact_dimension": 7,
+  "grain": 6,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions with clear FK relationships, but suffers from grain confusion (fact_lineorder and fact_orders at different levels), denormalized attributes in dim_customer (nation/region), and proliferation of comment tables that duplicate keys rather than integrating into dimensions. Time hierarchy is well-structured but incomplete (no day-level hierarchy in date dimension)."
+ },
+ "S0101100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions, but suffers from significant redundancy issues: denormalized customer geography (c_nation, c_region) duplicates dim_nation/dim_region; duplicate dates (l_shipdate, l_commitdate, l_receiptdate as raw dates alongside o_orderdate) lack proper dimension keys; and multiple fact tables at different grains (line-item vs. order-header) create ambiguity without clear conformation paths. Time hierarchies are well-structured but underutilized due to denormalization."
+ },
+ "S0101110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant grain confusion (fact_lineorder and fact_orders at different levels with unclear relationships), substantial redundancy (nation and region denormalized into dim_customer; duplicate comment tables alongside fact tables), and naming ambiguities (lo_revenue/lo_supplycost in fact_lineorder use different prefix). Time hierarchies are usable but incomplete (no shipdate dimension). While source data is preserved, the design lacks clarity needed for straightforward analysis."
+ },
+ "S0110000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 8,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions with clear naming conventions, but suffers from significant semantic issues: multiple fact tables at different grains (lineorder at line-item level, orders at order level) without clear separation of concerns; denormalized dimensions (dim_customer, dim_supplier, dim_nation) with redundant nation/region attributes; and unclear relationships (lineorder joins orders, and joins partsupp across compound keys). Time dimension is absent despite multiple dates in fact tables. The design preserves source data but lacks the dimensional clarity needed for confident analytical queries."
+ },
+ "S0110010": {
+  "fact_dimension": 6,
+  "grain": 7,
+  "hierarchies_time": 5,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema correctly identifies facts and dimensions, and grain is mostly clear (lineorder at line level, orders at order level). However, significant semantic weaknesses undermine analytical utility: denormalized nation/region data in customer and supplier creates redundancy and update anomalies; time dimensions lack hierarchy structure; and eight separate comment tables fragment contextual information that should be integrated into their parent entities. The design prioritizes preserving source data over analytical coherence."
+ },
+ "S0110100": {
+  "fact_dimension": 6,
+  "grain": 6,
+  "hierarchies_time": 5,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from significant redundancy (denormalized nation/region in dim_customer and dim_supplier, duplicate measures in fact_lineorder), unclear grain separation between fact_orders and fact_lineorder, and an underdeveloped time dimension. Naming is clear but the semantic structure needs refinement to be considered good dimensional design."
+ },
+ "S0110110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 4,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source TPC-H structure but violates dimensional design principles: fact_lineorder and fact_orders mix different grains without clear separation; redundant denormalized attributes (nation, region) appear in both dimension and comment tables; time dimensions are absent despite multiple date columns; and nine fragmented comment tables duplicate keys rather than being attributes or a unified SCD mechanism. While analyzable, the design creates semantic ambiguity and maintenance risk."
+ },
+ "S0111000": {
+  "fact_dimension": 7,
+  "grain": 6,
+  "hierarchies_time": 7,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions with clear intent, but suffers from grain confusion (fact_lineorder and fact_orders at different grains without clear separation), redundant geographic attributes in dimensions (c_nation/c_region and s_nation/s_region duplicating dim_nation/dim_region), and an unusual fact-to-fact relationship that undermines dimensional purity. Time dimension is well-structured but underutilized (only one date foreign key despite three date columns in fact_lineorder)."
+ },
+ "S0111010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions with proper star/snowflake structure, but suffers from significant redundancy issues (denormalized nation/region in customer/supplier, duplicate comment tables) and grain ambiguity (fact_lineorder and fact_orders operate at different grains yet are directly related). Time dimension is well-structured but underutilized in lineorder. The design preserves source data but introduces confusion rather than clarity."
+ },
+ "S0111100": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies facts and dimensions but suffers from unclear grain separation (fact_lineorder and fact_orders at different levels without clear bridge), significant redundancy (nation/region denormalized into customer/supplier; multiple date columns in fact_lineorder not linked to dim_date), and a confusing fact-to-fact join that violates standard dimensional modeling. The time dimension is well-structured but underutilized due to raw date columns in facts."
+ },
+ "S0111110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data well but suffers from unclear grain separation (fact_lineorder and fact_orders have overlapping content), significant dimensional denormalization (nation/region attributes duplicated in customer/supplier), and proliferation of comment tables that blur fact vs. dimension boundaries. Time hierarchies are usable but grain ambiguity and redundancy undermine analytical clarity."
+ },
+ "S1000000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from significant semantic issues: fact_lineorder mixes order-level attributes (o_custkey, o_orderstatus, o_orderdate) with line-item facts, creating grain confusion; fact_orders is redundant and poorly integrated as a separate fact table; and fact_partsupp's role as a dimension or fact is ambiguous. Time hierarchies are present but underutilized. While naming is generally clear and dimensional structure recognizable, the blurred grain boundaries and redundant fact tables undermine analytical clarity."
+ },
+ "S1000001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a foundational dimensional structure but suffers from significant semantic issues: fact_lineorder conflates order-level and line-item-level facts (mixing o_ and l_ attributes), fact_orders is redundant and poorly integrated, grain boundaries are blurred across multiple fact tables, and there is substantial denormalization that creates ambiguity in analytical queries. Time hierarchies are present but naming could better distinguish order vs. line-item timestamps."
+ },
+ "S1000010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from semantic confusion: fact_lineorder conflates line-item and order-level facts; fact_orders is redundant and underutilized; multiple parallel comment tables fragment metadata; and redundant nation-region hierarchies exist for both customers and suppliers. Time dimensions lack proper hierarchy structure, and naming conventions mix fact/dimension roles inconsistently."
+ },
+ "S1000011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from unclear grain separation (fact_lineorder mixes line and order detail), redundant fact tables (fact_orders is denormalized into fact_lineorder), and excessive comment tables (9 tables) that create maintenance complexity and semantic ambiguity about whether comments are dimensions or facts. Naming is inconsistent (l_ vs o_ prefixes in same table), and the two Nation tables serving different roles lack disambiguation. Time hierarchies are present but underutilized."
+ },
+ "S1000100": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but violates dimensional design principles: fact_lineorder mixes order-level and line-item-level facts (grain confusion), fact_orders is redundant and underutilized, and dim_nation appears twice in relationships creating ambiguity. Naming is partially unclear (lo_ vs l_ prefixes, o_ attributes in lineorder table), and hierarchies exist but are obscured by structural issues."
+ },
+ "S1000101": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has correct dimensional modeling foundations but suffers from critical grain confusion (fact_lineorder absorbs order-level attributes and fact_orders is underutilized), significant redundancy (dim_nation and dim_region replicated in multiple paths, fact_partsupp's purpose unclear), and naming inconsistencies (lo_revenue/lo_supplycost lack prefix clarity). Time hierarchy exists but lacks granularity. Usable with major restructuring needed."
+ },
+ "S1000110": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema attempts dimensional design but suffers from critical grain confusion (fact_lineorder and fact_orders at different granularities with unclear relationships), severe redundancy (duplicate comment tables, duplicate nation/region hierarchies), and mixing of order-level attributes into a line-item fact table. While hierarchies and naming are reasonable, the fundamental structural issues undermine analytical clarity."
+ },
+ "S1000111": {
+  "fact_dimension": 4,
+  "grain": 3,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 2,
+  "overall": 4,
+  "justification": "The schema has a fundamentally broken design with severe grain confusion (fact_lineorder mixes line-item and order-level data), massive redundancy (duplicate comment tables, fact_orders is unnecessary), and ambiguous fact table definitions that violate dimensional modeling principles. While time hierarchies and naming are acceptable, the core structural issues make this schema unsuitable for reliable OLAP analysis."
+ },
+ "S1001000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a fundamentally confused architecture with order-level attributes (o_custkey, o_orderdate, o_orderdatekey, o_orderstatus, o_orderpriority) embedded in a line-item fact table, creating semantic ambiguity about grain. The separate fact_orders table is poorly defined and disconnected, fact_partsupp mixes dimensional and factual roles, and multiple Nation and Region dimensions are referenced without aliases, creating redundancy and join ambiguity. Time dimensions are well-structured but naming lacks clarity throughout."
+ },
+ "S1001001": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts in fact_lineorder, creating grain ambiguity and redundancy. fact_orders and fact_partsupp lack clear dimensional linkage. While time and geographic hierarchies are well-structured, significant semantic confusion arises from mixing grain levels and duplicating order attributes across multiple tables."
+ },
+ "S1001010": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from critical semantic issues: fact_lineorder conflates two grains (line items and orders) by embedding order attributes; fact_orders is redundant and poorly integrated; 9 separate comment tables violate normalization and complicate joins; and duplicate nation-region hierarchies exist for customer and supplier dimensions. The time dimension is well-designed, but structural ambiguities make analysis error-prone."
+ },
+ "S1001011": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema attempts a star schema but suffers from severe grain confusion (fact_lineorder mixes line-item and order-level data; fact_orders is redundant), widespread denormalization of comment tables that duplicates dimensional data, and unclear measure semantics. Time hierarchy is well-structured, but naming inconsistencies (o_orderdatekey vs d_datekey) and massive redundancy across comment tables undermine analytical clarity."
+ },
+ "S1001100": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts in fact_lineorder, creating grain confusion and redundancy. While dimensional hierarchies (Nation\u2192Region) are well-structured and time attributes exist, critical semantic issues include: order attributes (o_custkey, o_orderstatus, o_orderdate) mixed with line-item measures, a separate fact_orders table that duplicates order context, fact_partsupp's role unclear, and ambiguous naming (o_* prefix in lineorder table). The preservation of source structure has created a semantically incoherent design that violates dimensional modeling principles."
+ },
+ "S1001101": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item level facts in fact_lineorder, creating grain ambiguity and redundancy. Order attributes (o_*) and line attributes (l_*) mixed in one table violate dimensional principles. fact_orders appears orphaned and duplicative. Multiple date columns lack dimension keys, and dim_nation is duplicated in relationships. While hierarchies and naming are acceptable, fundamental grain and redundancy issues severely compromise analytical clarity."
+ },
+ "S1001110": {
+  "fact_dimension": 4,
+  "grain": 3,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 2,
+  "overall": 4,
+  "justification": "The schema has fundamental design flaws: fact_lineorder mixes line-item and order-level attributes (grain confusion), fact_orders is redundant and poorly integrated, and extensive denormalization of comment tables creates severe redundancy. While dimensional hierarchy structure is sound and time dimension is usable, the core fact table design undermines analytical reliability."
+ },
+ "S1001111": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has fundamental grain confusion (fact_lineorder mixes line-level and order-level data; fact_orders is redundant), severe table redundancy (9 separate *_comments tables duplicate keys already in facts/dimensions), and ambiguous dimension relationships (dim_nation used twice without aliasing). Time hierarchy is well-structured, and most names are clear, but the proliferation of comment tables and mixed grains severely undermine analytical clarity and maintenance."
+ },
+ "S1010000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but violates dimensional design principles: fact_lineorder mixes order-header attributes (o_custkey, o_orderstatus, o_orderdate) with line-item facts, creating grain ambiguity; fact_orders is redundant and poorly integrated; dim_supplier denormalizes nation and region names; and multiple date columns lack a proper time dimension. While hierarchies exist and most naming is clear, the design compromises analytical clarity through structural redundancy and conflated grains."
+ },
+ "S1010001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but violates dimensional design principles: fact_lineorder mixes order-level attributes (o_custkey, o_orderstatus, o_orderdate) with line-item facts, creating grain confusion; fact_orders is redundant and poorly integrated; dim_supplier denormalizes nation and region; and multiple date columns lack a proper time dimension. The structure is usable for basic analysis but semantically unclear and difficult to navigate."
+ },
+ "S1010010": {
+  "fact_dimension": 4,
+  "grain": 3,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 4,
+  "justification": "The schema has critical semantic flaws: fact_lineorder conflates two grains (line items and orders), fact_orders is redundant and poorly integrated, dim_supplier denies denormalization by including derived nation/region fields, and nine parallel comment tables create structural chaos. While time hierarchies are present and naming is mostly acceptable, the design violates fundamental dimensional principles and creates severe redundancy and ambiguity around grain boundaries."
+ },
+ "S1010011": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 4,
+  "justification": "The schema has fundamental design flaws: fact_lineorder mixes order-level and line-level facts creating grain confusion; order attributes (o_*) belong in a separate dimension, not the fact table; redundant comment tables and denormalized supplier attributes (s_nation, s_region) create maintenance risks; fact_orders is orphaned and unclear in purpose. While time hierarchies exist, the semantic structure violates dimensional modeling principles."
+ },
+ "S1010100": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a fundamental grain problem: fact_lineorder mixes line-item details with order-level attributes (o_custkey, o_orderstatus, o_orderdate), and fact_orders is disconnected and redundant. Significant denormalization in dim_supplier (s_nation, s_region) and naming inconsistencies (lo_revenue vs. l_extendedprice, fact_lineorder vs. fact_orders grain confusion) further undermine semantic clarity, though the time dimension and core dimension structure are reasonable."
+ },
+ "S1010101": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item-level facts into a single fact table, creating grain ambiguity and semantic confusion. Redundant attributes (s_nation, s_region in dim_supplier; order attributes in fact_lineorder) and an unclear fact_orders table weaken the design, though dimensional hierarchies and time attributes are reasonably structured."
+ },
+ "S1010110": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts dimensional design but suffers from significant semantic confusion: fact_lineorder conflates line-item and order-level facts (mixing l_* and o_* columns), fact_orders appears redundant and underutilized, and comment tables proliferate unnecessarily. Hierarchies and time dimensions exist but are undermined by denormalized supplier attributes and widespread attribute duplication across tables and comment tables."
+ },
+ "S1010111": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves TPC-H source data as required, but suffers from significant semantic weaknesses: fact_lineorder conflates two grains (line-item vs. order level) by mixing order attributes, fact_orders is redundant and poorly integrated, denormalized supplier attributes (s_nation, s_region) duplicate dimension joins, and scattered comment tables create maintenance risk. Time hierarchies exist but lack formal structure, and naming conventions mix prefixes inconsistently (lo_ vs. l_ for lineorder). The design is usable but requires careful interpretation."
+ },
+ "S1011000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates facts and dimensions (lineorder contains order headers), has unclear grain boundaries between fact tables, suffers from significant redundancy (order data split across tables, denormalized supplier geography), and lacks proper dimensional normalization. Time hierarchies are well-structured but don't compensate for core semantic design issues."
+ },
+ "S1011001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates order and line-item facts into a single fact_lineorder table, creating grain ambiguity and redundancy. Denormalized supplier attributes and orphaned fact tables undermine semantic clarity, though the dimensional structure and time hierarchy are reasonably well-designed."
+ },
+ "S1011010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but conflates order and line-item grains within fact_lineorder, duplicates dimensional data in fact tables (dim_supplier attributes in fact_lineorder), and scatters comments into separate tables creating redundancy and query complexity. Time hierarchies are well-structured, but semantic clarity is undermined by grain ambiguity and denormalized design choices."
+ },
+ "S1011011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts a dimensional model but suffers from significant semantic issues: unclear fact table grain (fact_lineorder mixes order and lineitem levels), dimensional data embedded in facts (o_* columns in fact_lineorder), severe redundancy (8 separate comment tables and denormalized supplier attributes), and ambiguous use of fact_orders whose relationship to fact_lineorder is unclear. Time dimension is well-structured, but poor grain separation and excessive denormalization undermine analytical clarity."
+ },
+ "S1011100": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts into a single fact_lineorder table, creating grain ambiguity and semantic confusion. Significant denormalization (s_nation, s_region in dim_supplier; order attributes in fact_lineorder) and fact-to-fact joins violate dimensional modeling principles, though time hierarchies and dimension coverage are reasonably complete."
+ },
+ "S1011101": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts in fact_lineorder, creating grain ambiguity and semantic confusion. Significant redundancy exists (order attributes duplicated in fact_lineorder, supplier denormalization in dim_supplier, multiple date columns not linked to dimension), and fact_orders appears orphaned. While time hierarchy is reasonable and naming mostly clear, the fundamental design violates dimensional modeling principles by mixing facts at different granularities and denormalizing dimensions."
+ },
+ "S1011110": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema attempts dimensional design but suffers from critical grain confusion (fact_lineorder mixes line-item and order-level attributes), severe redundancy (duplicate denormalized attributes in fact_lineorder and scattered comment tables), and unclear fact table roles. While time hierarchies are well-structured and relationships are mostly correct, the design creates semantic ambiguity that undermines analytical clarity."
+ },
+ "S1011111": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates line-item and order-level facts in fact_lineorder, contains massive redundancy through parallel comment tables and denormalized supplier attributes, and exhibits unclear grain boundaries. While time hierarchy is well-structured and dimensional tables are mostly well-designed, the numerous semantic violations and design inconsistencies significantly undermine analytical clarity."
+ },
+ "S1100000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a sound dimensional foundation with clear dimension tables and recognizable facts, but suffers from significant grain confusion (fact_lineorder contains order-level attributes), semantic redundancy (dim_customer duplicates nation/region data already in dim_nation/dim_region), and unclear fact-to-fact relationships (fact_orders and fact_lineorder mixing). Time hierarchies are present but underutilized. The design is usable for analysis but requires careful query logic to avoid ambiguity."
+ },
+ "S1100001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates facts and dimensions with significant redundancy issues (denormalized customer/nation data in dim_customer, fact_orders lacks measures, fact_lineorder mixes order-level attributes). While time hierarchies exist via dates and dimensional hierarchies are present, the unclear grain boundaries and duplicated attributes (e.g., c_nation/c_region in dim_customer vs. dim_nation/dim_region) undermine analytical clarity."
+ },
+ "S1100010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from poor semantic organization: fact_lineorder conflates order and line-item grains with embedded order attributes; fact_orders is underspecified and redundant with fact_lineorder; dimensional attributes (c_nation, c_region) are denormalized in dim_customer; and nine separate comment tables create unnecessary redundancy. Time hierarchies exist but lack proper dimension tables. Clear violations of fact-dimension separation and grain consistency undermine analytical clarity."
+ },
+ "S1100011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from significant semantic issues: fact_lineorder conflates line-item and order-level measures (order attributes embedded in line-level facts), redundant fact tables (fact_orders appears unused), denormalized dimensions (dim_customer contains nation/region duplicating dim_nation/dim_region), and parallel comment tables that duplicate unstructured data. Time hierarchies are adequate but grain clarity is compromised by mixed dimensionality."
+ },
+ "S1100100": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has fundamental structural problems: fact_lineorder conflates order-level and line-item-level facts, fact_orders is redundant and poorly integrated, and dim_customer contains denormalized nation/region data creating maintenance issues. While time hierarchies are adequate and naming is mostly clear, the mixed grains and data redundancy significantly undermine analytical clarity."
+ },
+ "S1100101": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has fundamental grain and redundancy issues: fact_lineorder mixes line-item detail with order-level attributes (o_custkey, o_orderstatus, o_orderdate), fact_orders is redundant since order data already exists in fact_lineorder, and dim_customer denormalizes nation/region data already in proper dimensions. Time hierarchy is well-structured but naming lacks consistency (mix of prefixes: l_, o_, lo_, ps_). While source preservation is noted, the denormalization and grain confusion severely compromise analytical clarity."
+ },
+ "S1100110": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema attempts a star design but suffers from critical grain confusion (fact_lineorder mixes line-item and order-level data), denormalization of order attributes into lineorder, and excessive comment tables that fragment natural entities. Dimensional hierarchies exist but are undermined by redundant denormalization (e.g., c_nation, c_region in dim_customer). While source preservation is acknowledged, the design obscures rather than clarifies analytical intent."
+ },
+ "S1100111": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 4,
+  "justification": "The schema conflates line-item and order-level facts in fact_lineorder, denormalizes nation/region into dim_customer creating maintenance issues, and fragments semantic meaning across 9 separate comment tables. While dimensions are mostly well-identified, grain confusion, significant redundancy (duplicate nation/region in customer), and poor separation of concerns severely weaken analytical clarity."
+ },
+ "S1101000": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order and line-item facts into a single fact_lineorder table, creating grain confusion and severe redundancy. Denormalized order attributes (o_custkey, o_orderstatus, o_orderdate) repeat across millions of line items, and fact_orders is orphaned and semantically unclear. Dimension hierarchies are well-structured (Region\u2192Nation\u2192Supplier), but naming conventions are inconsistent (mixing 'l_', 'o_', 's_' prefixes), and the relationship to fact_partsupp is semantically ambiguous."
+ },
+ "S1101001": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has fundamental grain and redundancy issues: fact_lineorder mixes line-item and order-level attributes (creating ambiguous grain), fact_orders is orphaned and redundantly duplicates order data already in fact_lineorder, and dim_customer contains denormalized nation/region attributes. While hierarchies and naming are generally reasonable, these semantic violations significantly undermine analytical clarity."
+ },
+ "S1101010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from significant semantic issues: fact_lineorder conflates line-item and order-level grain with embedded order attributes; multiple redundant comment tables violate normalization; dim_customer denormalizes nation/region data already in dim_nation; and fact_orders appears orphaned. While time hierarchies are well-structured, the mixing of grains and pervasive data duplication undermine analytical clarity."
+ },
+ "S1101011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts a star design but suffers from significant semantic issues: mixed grain in fact_lineorder (line and order level), denormalized order attributes within a line-level fact table, and excessive comment tables that duplicate dimensional data. While hierarchies and time dimension are reasonable, redundancy and fact table clarity are major weaknesses."
+ },
+ "S1101100": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts into a single table, creating grain ambiguity and severe redundancy. Denormalized order attributes (o_*) in fact_lineorder duplicate fact_orders, and geographic attributes (c_nation, c_region) in dim_customer duplicate the nation/region dimensions. Time dimension is well-structured but underutilized. The design preserves source data but sacrifices clarity for analytical purposes."
+ },
+ "S1101101": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has fundamental design issues: fact_lineorder conflates order-level and line-level facts creating grain confusion, fact_orders is redundant and poorly integrated, dim_customer denormalizes nation/region data already in dimension tables, and multiple date columns lack proper dimension keys. While hierarchies and naming are reasonable, severe redundancy and grain ambiguity undermine analytical clarity."
+ },
+ "S1101110": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has a fundamentally flawed design with severe grain confusion (fact_lineorder mixes line-item and order-level attributes), significant redundancy (order attributes duplicated in fact_lineorder; separate comment tables), and ambiguous fact/dimension boundaries (fact_orders and fact_partsupp lack clear grain definitions and are poorly integrated). While the time dimension is well-structured and naming is mostly clear, these strengths cannot overcome the core architectural issues that undermine analytical usability."
+ },
+ "S1101111": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order and line-item facts into a single fact_lineorder table (mixing grains), duplicates order data across fact tables, embeds dimensional attributes (nation, region) into dimensions breaking normalization, and scatters comments into separate tables unnecessarily. While hierarchies and naming are reasonable, severe grain confusion and pervasive redundancy undermine analytical clarity."
+ },
+ "S1110000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a fundamental design flaw: fact_lineorder mixes two grains (order line and order header), and fact_orders is redundant and poorly integrated. Denormalization in dim_customer and dim_supplier creates maintenance risk. Time hierarchies are present but underutilized. While dimensions are largely well-structured, the fact table architecture violates core dimensional modeling principles."
+ },
+ "S1110001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but violates dimensional modeling principles by mixing facts and dimensions within tables, creating grain ambiguity, and introducing significant denormalization (c_nation, c_region, s_nation, s_region) that duplicates dimension information. The fact_orders table lacks a clear measure grain and appears redundant with fact_lineorder."
+ },
+ "S1110010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from significant semantic confusion: fact_lineorder conflates order-level and line-level facts; denormalized nation/region data in dim_customer and dim_supplier creates redundancy; nine separate comment tables fragment textual data; and fact_orders appears orphaned. While hierarchies exist (nation\u2192region), the design obscures grain boundaries and introduces substantial duplication that impairs analytical clarity."
+ },
+ "S1110011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts dimensional design but suffers from significant semantic issues: fact_lineorder conflates order-level and line-item attributes (mixing grains), dimensional attributes are duplicated across tables (nation/region in dim_customer and dim_supplier), comment data is fragmented into separate tables creating ambiguity, and fact_orders appears redundant given fact_lineorder's completeness. Time hierarchies exist but lack formalization. While source data is preserved, the design obscures analytical intent."
+ },
+ "S1110100": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item-level facts into a single fact table, creating ambiguous grain and redundant data (order attributes repeated per line item). Denormalization of nation/region into customer and supplier dimensions adds redundancy. Time hierarchies are present but underutilized. Naming is inconsistent (mixing 'l_', 'o_', 'lo_' prefixes) and the relationship between fact_lineorder and fact_orders is architecturally unsound."
+ },
+ "S1110101": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema conflates facts and dimensions (denormalized customer/nation/region data in dim_customer; order attributes mixed into fact_lineorder), suffers from unclear grain separation between fact_lineorder and fact_orders with redundant relationships, and contains significant column-level duplication (c_nation, c_region, s_nation, s_region). Time hierarchies are usable but lack explicit levels. Naming is inconsistent (mixed l_, o_, lo_ prefixes) and the fact_partsupp table's role is ambiguous."
+ },
+ "S1110110": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 6,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 4,
+  "justification": "The schema conflates fact and dimension responsibilities (fact_lineorder embeds order attributes; fact_orders appears redundant), lacks clear grain separation, duplicates dimensional attributes across tables, and scatters comments into separate tables rather than preserving them where semantically they belong. While time hierarchies are present and naming is mostly clear, significant structural issues undermine analytical clarity."
+ },
+ "S1110111": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 6,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item facts into a single fact_lineorder table, creating grain confusion and semantic redundancy. Denormalized dimension attributes and nine separate comment tables add substantial structural clutter. While dimensional modeling is evident and naming is reasonably clear, the design violates fundamental OLAP principles through grain ambiguity and excessive duplication, making it usable but semantically problematic."
+ },
+ "S1111000": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but conflates orders and line items in fact_lineorder, creating grain ambiguity and semantic confusion. Significant denormalization (c_nation, c_region in dim_customer; s_nation, s_region in dim_supplier) and the unexplained fact_orders table create redundancy and unclear measurement semantics."
+ },
+ "S1111001": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema has a critical structural flaw: fact_lineorder contains order-level attributes (o_custkey, o_orderstatus, o_orderdate, o_orderpriority, o_clerk, o_shippriority, o_orderdatekey) mixed with line-item facts, violating grain consistency. Significant denormalization exists in dim_customer and dim_supplier (c_nation, c_region, s_nation, s_region duplicate dim_nation and dim_region), and fact_orders appears redundant to fact_lineorder. The time dimension lacks useful hierarchies (no quarter, day-of-week), and naming conventions are inconsistent (prefixes like 'l_', 'o_', 'c_', 'p_', 's_'). While the schema preserves source information and is analyzable, the mixed grain and redundancy create semantic ambiguity."
+ },
+ "S1111010": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema attempts a star design but suffers from mixed grain in fact_lineorder (combines line-item and order-level attributes), significant denormalization (nation/region data duplicated in dim_customer and dim_supplier), and redundant comment tables that should be consolidated. The semantic structure is recognizable but compromised by design inconsistencies that will confuse analysis and create maintenance risk."
+ },
+ "S1111011": {
+  "fact_dimension": 6,
+  "grain": 5,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema preserves source data but suffers from significant semantic issues: fact_lineorder illegally embeds order-level attributes (o_*) creating grain ambiguity; denormalized geographic attributes in dim_customer and dim_supplier break hierarchy clarity; and separate comment tables duplicate key relationships instead of extending dimensions. While the time dimension is well-structured, pervasive redundancy and unclear grain boundaries undermine analytical reliability."
+ },
+ "S1111100": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 5,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has fundamental grain and redundancy issues: fact_lineorder mixes line-item and order-level attributes, fact_orders is a separate table but denormalized into fact_lineorder, and dimension tables duplicate hierarchical attributes (nation/region in dim_customer and dim_supplier). Naming is inconsistent (l_ vs o_ prefixes in one table; lo_ for derived columns). The time dimension is reasonable but underutilized. The design preserves source data but violates core dimensional modeling principles, making analysis semantically ambiguous."
+ },
+ "S1111101": {
+  "fact_dimension": 6,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 4,
+  "overall": 5,
+  "justification": "The schema conflates order-level and line-item-level facts into a single table, creating semantic confusion and grain inconsistency. Significant denormalization (customer/nation/region data duplicated across dimensions) and unclear fact table boundaries undermine clarity, though the dimensional framework and time hierarchy are reasonably sound."
+ },
+ "S1111110": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has a fundamentally confused structure mixing order and line-item facts in a single fact_lineorder table, creating grain ambiguity and severe redundancy. Fact/dimension separation is compromised by denormalized attributes (c_nation, c_region, s_nation, s_region in dimensions; o_* columns in fact_lineorder), and multiple comment tables duplicate information that should reside in dimensions. While the time dimension is well-structured and naming is generally acceptable, these strengths cannot overcome the core semantic design flaws."
+ },
+ "S1111111": {
+  "fact_dimension": 5,
+  "grain": 4,
+  "hierarchies_time": 7,
+  "naming": 6,
+  "redundancy": 3,
+  "overall": 5,
+  "justification": "The schema has a fundamentally confused design mixing facts and dimensions in a single lineorder table, separates order-level and line-level data across tables, embeds dimensional attributes (customer/supplier details) directly in facts, and creates widespread redundancy through parallel comment tables and denormalized nation/region data. While time hierarchies are well-structured, the core fact-dimension separation is severely compromised, making analysis ambiguous and error-prone."
+ },
+ "original": {
+  "fact_dimension": 6,
+  "grain": 7,
+  "hierarchies_time": 6,
+  "naming": 8,
+  "redundancy": 5,
+  "overall": 6,
+  "justification": "The schema correctly identifies lineitem as the primary fact table and maintains clear dimensional hierarchies (customer\u2192nation\u2192region, supplier\u2192nation\u2192region). However, semantic quality is weakened by: (1) ambiguous fact vs. dimension classification\u2014orders contains both facts (o_totalprice) and attributes, blurring grain boundaries; (2) redundant nation table appearing twice in the hierarchy path without distinction; (3) missing time dimension formalization despite three date columns in lineitem; (4) unclear whether orders or lineitem is the primary analytical grain. The schema is usable for OLAP but requires clarification of measure ownership and explicit time dimension design."
+ },
+ "star": {
+  "fact_dimension": 9,
+  "grain": 9,
+  "hierarchies_time": 8,
+  "naming": 8,
+  "redundancy": 7,
+  "overall": 8,
+  "justification": "This is a well-designed star schema with clear fact/dimension separation, unambiguous grain at line-item level, and strong naming conventions. Minor weaknesses: geographic hierarchies (nation/region) lack explicit hierarchy definition, and some dimensional denormalization (e.g., nation and region in both customer and supplier) creates minor redundancy that could complicate maintenance."
+ },
+ "heuristic": {
+  "fact_dimension": 6,
+  "grain": 7,
+  "hierarchies_time": 5,
+  "naming": 7,
+  "redundancy": 4,
+  "overall": 6,
+  "justification": "The schema correctly identifies fact_lineitem as the central fact table with clear measures, and dimensions are properly separated. However, significant semantic weaknesses exist: dim_orders conflates order headers with customer/nation/region data (violating normalization and creating redundancy), dim_supplier similarly embeds nation/region hierarchies, no proper time dimension exists despite three date columns, and the hierarchies are buried in denormalized dimensions rather than explicitly modeled. The grain is clear but the dimensional design lacks the discipline expected in textbook star schemas."
+ }
+}
