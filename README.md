@@ -1,22 +1,60 @@
-# Automated OLTP-to-OLAP Schema Transformation Using LLMs and Multi-Criteria Pareto Optimisation
+# Automated OLTP-to-OLAP Schema Transformation Using LLMs and Pareto Optimisation
 
-Prototype developed for the bachelor thesis of Orkhan Mammadov,
-Riga Technical University, 2026. Scientific adviser: Mg.sc.ing. Ainārs Auziņš.
+Source code and experiment results of the bachelor thesis by Orkhan Mammadov
+(Riga Technical University, scientific adviser Mg.sc.ing. Ainārs Auziņš).
+
+The prototype transforms the TPC-H schema into analytical (OLAP) schemas using seven
+OLAP-specific transformation rules, evaluates every candidate schema by query performance (K1),
+storage consumption (K2), number of joins (K3) and an LLM-based semantic score (K4), and selects
+Pareto-optimal schemas. Structural checks verify that all source information is preserved and
+that measures of different grains are not mixed.
+
+## Requirements
+
+- Python 3.11, packages: `duckdb`, `anthropic`, `python-dotenv`, `matplotlib`
+- An Anthropic API key in a file `.env` (not included in this repository):
+- ANTHROPIC_API_KEY=your-key
+CLAUDE_MODEL=claude-haiku-4-5-20251001
 
 ## Files
+
 | File | Purpose |
 |---|---|
-| setup_tpch.py | Generates the TPC-H database (scale factor 1) |
-| run_queries.py | Runs the 22 standard TPC-H queries on the original schema |
-| workload.py | 13 logical workload queries, schema descriptions and SQL translator |
-| build_star.py | Builds baseline 2: manually designed star schema |
-| build_heuristic.py | Builds baseline 3: rule-based heuristic transformation |
-| run_workload.py, summary.py | Measures and compares the baseline schemas |
-| prototype.py | Rule database, schema builder, evaluator, LLM assessment, Pareto search |
-| results_*.csv, llm_cache.json, pareto_front.png | Results of the experiments |
+| `setup_tpch.py` | Generates the TPC-H database (scale factor 1) |
+| `run_queries.py` | Runs the 22 standard TPC-H queries on the original schema |
+| `workload.py` | 13 logical workload queries, schema descriptions and the SQL translator |
+| `build_star.py`, `build_heuristic.py` | Baseline schemas (manual star schema, heuristic schema) |
+| `run_workload.py`, `summary.py` | Measurement of the baseline schemas (Chapter 2) |
+| `prototype.py` | First version of the prototype (Chapter 4) |
+| `prototype2.py` | Second version: complete evaluation of all 96 candidates, search with and without the LLM criterion, overall Pareto set, LLM consistency, repeated measurements (Chapter 5) |
+| `verify.py` | Reconstruction check of all source tables (EXCEPT ALL in both directions), data-based grain check, full star schema baseline, repeated measurements of 10 schemas |
+| `llm_validation.py` | Validation of the LLM assessment against a blind expert evaluation (basic and extended schema descriptions) |
 
-## How to run
-1. `pip install duckdb pandas matplotlib anthropic python-dotenv`
-2. Create a `.env` file with `ANTHROPIC_API_KEY=...` and `CLAUDE_MODEL=claude-haiku-4-5-20251001`
-3. `python setup_tpch.py`, then `python build_star.py` and `python build_heuristic.py`
-4. `python run_workload.py` (baselines), then `python prototype.py` (prototype)
+## How to run (second version)
+python prototype2.py enumerate # E1: all 96 candidates and baselines (SF 1)
+python prototype2.py analyse # E2: fronts and search with/without LLM, overall Pareto set, rule effects
+python prototype2.py consistency # E3: repeated LLM assessments
+python prototype2.py setup --sf 5 # generate the TPC-H database at scale factor 5
+python verify.py checks --all # reconstruction and grain checks of all schemas
+python verify.py remeasure --sf 1 # E4: repeated measurements incl. the full star schema
+python verify.py remeasure --sf 5
+python llm_validation.py prepare # E5: schema descriptions and blind expert form
+python llm_validation.py llm # E5: LLM scores (basic and extended description)
+python llm_validation.py compare # E5: comparison with the expert scores
+
+## Result files
+
+| Experiment | Files |
+|---|---|
+| E1 complete evaluation | `results_enum_sf1.csv`, `timings_enum_sf1.csv`, `llm_cache_v2.json`, `schema_texts.json` |
+| E2 with/without LLM, Pareto sets, rule effects | `results_search_comparison.csv`, `results_fronts.csv`, `results_rule_effects.csv`, `overall_front.png` |
+| E3 LLM consistency | `llm_consistency.json`, `results_llm_consistency.csv` |
+| Structural checks | `results_reconstruction_summary.csv`, `results_reconstruction_detail.csv`, `results_grain_check2.csv` |
+| E4 repeated measurements | `results_remeasure2_sf1.csv`, `results_remeasure2_sf5.csv`, `timings_remeasure2_sf1.csv`, `timings_remeasure2_sf5.csv`, `remeasure2_sf1.png`, `remeasure2_sf5.png` |
+| E5 LLM validation | `llm_validation_descriptions.json`, `llm_validation_results.json`, `expert_rubric.txt`, `expert_descriptions.txt`, `expert_scores.csv`, `results_llm_validation.csv`, `results_llm_validation_summary.csv` |
+
+Files `results_remeasure_sf1.csv`, `results_remeasure_sf5.csv`, `timings_remeasure_sf*.csv` and
+`remeasure_sf*.png` come from an earlier measurement without the full star schema; the thesis uses
+the `remeasure2` files.
+
+Database files (`*.duckdb`) are not included because of their size; they are generated by the scripts.
