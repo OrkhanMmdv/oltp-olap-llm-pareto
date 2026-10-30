@@ -1,0 +1,21 @@
+EXPERT RUBRIC (the same five aspects as in the LLM prompt)
+Study condition: all source information must be preserved, so keeping source columns or tables
+is NOT a weakness. Evaluate only semantic quality, not performance or storage size.
+
+Scale: 1-2 wrong or misleading design, 3-4 major weaknesses, 5-6 usable with clear weaknesses,
+       7-8 good with minor weaknesses, 9-10 textbook dimensional design.
+
+1. fact_dimension   Are facts (measurable events) and dimensions (descriptive context) identified
+                    correctly? Are measures in fact tables and descriptive attributes in dimensions?
+2. grain            Is the grain of every fact table clear, and are measures of different grains kept
+                    in different tables? (Descriptive attributes of a coarser level in a fact table,
+                    e.g. order date in an order-line fact, do NOT mix grains; repeated MEASURES do.)
+3. hierarchies_time Are meaningful hierarchies (customer -> nation -> region) and a usable time
+                    dimension available?
+4. naming           Are table and column names clear, consistent and unambiguous?
+5. redundancy       Is the schema free of duplicated or ambiguous attributes and tables
+                    (beyond what the study condition requires)?
+overall             Your overall judgement (not necessarily the average).
+
+Write your scores into expert_scores.csv (one row per schema, numbers 1-10) and a short comment.
+Do not look at the LLM results before you have finished.

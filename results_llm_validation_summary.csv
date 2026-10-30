@@ -1,0 +1,7 @@
+aspect,MAE_basic,spearman_basic,MAE_rich,spearman_rich
+fact_dimension,1.89,-0.24,1.74,0.03
+grain,4.67,-0.35,3.04,0.07
+hierarchies_time,0.93,0.87,0.93,0.92
+naming,1.33,0.36,1.26,0.25
+redundancy,3.48,0.62,1.93,0.89
+overall,2.07,-0.45,1.7,-0.27
